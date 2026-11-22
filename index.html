@@ -1,0 +1,704 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coroinhas | Escalas de Serviço</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <script type="module" src="script.js"></script>
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="#" class="logo" onclick="showPage('home'); return false;">
+        <div class="logo-icon">✝</div>
+        <div>
+            <strong>Coroinhas</strong>
+            <span>ESCALAS DE SERVIÇO</span>
+        </div>
+    </a>
+
+    <button class="menu-button" onclick="toggleMenu()">☰</button>
+
+    <nav id="navigation">
+        <a href="#" onclick="showPage('home'); return false;">Início</a>
+        <a href="#" onclick="showPage('parents'); return false;">Disponibilidade</a>
+        <a href="#" onclick="showPage('adminLogin'); return false;">Administradores</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <!-- INÍCIO -->
+
+    <section id="home" class="page active">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <span class="eyebrow">ORGANIZAÇÃO • SERVIÇO • FÉ</span>
+
+                <h1>Servir ao altar é uma <span>vocação.</span></h1>
+
+                <p>
+                    Um espaço para organizar as disponibilidades,
+                    preparar as escalas e facilitar a organização
+                    dos nossos coroinhas.
+                </p>
+
+                <button class="primary-button"
+                    onclick="showPage('parents')">
+                    Informar disponibilidade
+                    <span>→</span>
+                </button>
+
+            </div>
+
+            <div class="hero-decoration">
+
+                <img
+                    src="ostensorio.png"
+                    alt="Ostensório dourado"
+                    class="ostensorio"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="home-cards">
+
+            <article class="home-card">
+
+                <div class="card-icon">♧</div>
+
+                <h2>Pais e responsáveis</h2>
+
+                <p>
+                    Informe os dias em que seu filho poderá
+                    participar das celebrações.
+                </p>
+
+                <button class="text-button"
+                    onclick="showPage('parents')">
+                    Acessar painel →
+                </button>
+
+            </article>
+
+            <article class="home-card">
+
+                <div class="card-icon">✥</div>
+
+                <h2>Administradores</h2>
+
+                <p>
+                    Gerencie os coroinhas, cadastre celebrações
+                    e organize as escalas de serviço.
+                </p>
+
+                <button class="text-button"
+                    onclick="showPage('adminLogin')">
+                    Acessar painel →
+                </button>
+
+            </article>
+
+        </div>
+
+        <div class="home-footer">
+            <span>✝</span>
+            <p>Servir com amor, dedicação e alegria.</p>
+        </div>
+
+    </section>
+
+
+    <!-- PAINEL DOS PAIS -->
+
+    <section id="parents" class="page">
+
+        <div class="page-heading">
+
+            <span class="eyebrow">PAIS E RESPONSÁVEIS</span>
+
+            <h1>Disponibilidade</h1>
+
+            <p>
+                Digite o nome completo do coroinha e marque
+                os sábados e domingos em que ele poderá servir.
+            </p>
+
+        </div>
+
+        <div class="content-card">
+
+            <div class="form-group">
+
+                <label for="childName">
+                    Nome completo do coroinha
+                </label>
+
+                <input
+                    type="text"
+                    id="childName"
+                    placeholder="Digite o nome completo"
+                    autocomplete="off"
+                    required
+                >
+
+                <small>
+                    Digite o nome exatamente como foi cadastrado
+                    pela administração.
+                </small>
+
+            </div>
+
+
+            <!-- PREFERÊNCIAS DE PERÍODO -->
+
+            <div class="form-group">
+
+                <label class="period-options-title">
+                    Preferência de período
+                </label>
+
+                <div class="period-options">
+
+                    <label class="period-option">
+                        <input
+                            type="checkbox"
+                            id="preferenceMorning"
+                        >
+                        <span>☀️ Manhã</span>
+                    </label>
+
+                    <label class="period-option">
+                        <input
+                            type="checkbox"
+                            id="preferenceNight"
+                        >
+                        <span>🌙 Noite</span>
+                    </label>
+
+                </div>
+
+                <small>
+                    Você pode selecionar os dois períodos.
+                    A manhã é considerada somente aos domingos;
+                    aos sábados, vale a opção noite.
+                </small>
+
+            </div>
+
+
+            <!-- CALENDÁRIO -->
+
+            <div class="calendar-header">
+
+                <button class="calendar-arrow"
+                    onclick="changeMonth(-1)">
+                    ‹
+                </button>
+
+                <div>
+                    <h2 id="calendarMonth">Mês</h2>
+                    <span id="calendarYear"></span>
+                </div>
+
+                <button class="calendar-arrow"
+                    onclick="changeMonth(1)">
+                    ›
+                </button>
+
+            </div>
+
+            <div class="calendar-legend">
+
+                <span>
+                    <i class="legend-dot available"></i>
+                    Pode servir
+                </span>
+
+                <span>
+                    <i class="legend-dot selected"></i>
+                    Selecionado
+                </span>
+
+            </div>
+
+            <div class="calendar-grid" id="calendar">
+                <!-- CALENDÁRIO GERADO PELO JAVASCRIPT -->
+            </div>
+
+            <div class="selected-info">
+
+                <strong>Dias selecionados:</strong>
+
+                <span id="selectedCount">0 dias</span>
+
+            </div>
+
+            <div class="selected-dates" id="selectedDates">
+                Nenhuma data selecionada.
+            </div>
+
+            <button class="primary-button full-button"
+                onclick="submitAvailability()">
+
+                Enviar disponibilidade →
+
+            </button>
+
+            <p class="form-notice">
+
+                Atenção: após o envio, não será possível
+                alterar as datas diretamente pelo site.
+                Para correções, entre em contato com os administradores.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- LOGIN ADMINISTRATIVO -->
+
+    <section id="adminLogin" class="page">
+
+        <div class="login-wrapper">
+
+            <div class="login-icon">✝</div>
+
+            <span class="eyebrow">ÁREA RESTRITA</span>
+
+            <h1>Painel administrativo</h1>
+
+            <p>
+                Acesso exclusivo para os responsáveis
+                pela organização das escalas.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="adminPassword">
+                        Senha de acesso
+                    </label>
+
+                    <input
+                        type="password"
+                        id="adminPassword"
+                        placeholder="Digite sua senha"
+                        required
+                    >
+
+                </div>
+
+                <button class="primary-button full-button" type="submit">
+                    Entrar no painel →
+                </button>
+
+            </form>
+
+            <button class="back-button"
+                onclick="showPage('home')">
+                ← Voltar ao início
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAINEL ADMINISTRATIVO -->
+
+    <section id="adminPanel" class="page">
+
+        <div class="admin-heading">
+
+            <div>
+                <span class="eyebrow">GERENCIAMENTO</span>
+
+                <h1>Painel administrativo</h1>
+
+                <p>
+                    Organize as atividades e escalas dos coroinhas.
+                </p>
+            </div>
+
+            <button class="logout-button" onclick="logout()">
+                Sair
+            </button>
+
+        </div>
+
+
+        <!-- ABAS -->
+
+        <div class="admin-tabs">
+
+            <button class="admin-tab active"
+                onclick="showAdminTab('dashboard', this)">
+                Visão geral
+            </button>
+
+            <button class="admin-tab"
+                onclick="showAdminTab('children', this)">
+                Coroinhas
+            </button>
+
+            <button class="admin-tab"
+                onclick="showAdminTab('celebrations', this)">
+                Celebrações
+            </button>
+
+            <button class="admin-tab"
+                onclick="showAdminTab('availabilityAdmin', this)">
+                Disponibilidades
+            </button>
+
+            <button class="admin-tab"
+                onclick="showAdminTab('schedules', this)">
+                Escalas
+            </button>
+
+        </div>
+
+
+        <!-- VISÃO GERAL -->
+
+        <div id="dashboard" class="admin-content active">
+
+            <h2>Visão geral</h2>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <span>Coroinhas cadastrados</span>
+                    <strong id="totalChildren">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Celebrações cadastradas</span>
+                    <strong id="totalCelebrations">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Disponibilidades recebidas</span>
+                    <strong id="totalAvailabilities">0</strong>
+                </div>
+
+            </div>
+
+            <div class="content-card">
+
+                <h3>Bem-vindo à administração!</h3>
+
+                <p>
+                    Comece cadastrando os coroinhas e suas
+                    respectivas classificações. Depois, adicione
+                    as celebrações para preparar as escalas.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CADASTRO DE COROINHAS -->
+
+        <div id="children" class="admin-content">
+
+            <div class="section-title">
+
+                <div>
+                    <h2>Coroinhas</h2>
+                    <p>Cadastre e classifique os participantes.</p>
+                </div>
+
+            </div>
+
+            <div class="content-card">
+
+                <form id="childForm">
+
+                    <div class="form-group">
+
+                        <label for="newChildName">
+                            Nome completo
+                        </label>
+
+                        <input
+                            type="text"
+                            id="newChildName"
+                            placeholder="Nome do coroinha"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="newChildLevel">
+                            Experiência
+                        </label>
+
+                        <select id="newChildLevel" required>
+
+                            <option value="Experiente">
+                                Experiente
+                            </option>
+
+                            <option value="Intermediário">
+                                Intermediário
+                            </option>
+
+                            <option value="Iniciante">
+                                Iniciante
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button class="primary-button" type="submit">
+                        + Cadastrar coroinha
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div id="childrenList" class="admin-list"></div>
+
+        </div>
+
+
+        <!-- CADASTRO DE CELEBRAÇÕES -->
+
+        <div id="celebrations" class="admin-content">
+
+            <h2>Celebrações</h2>
+
+            <p>
+                Cadastre os dias e períodos dos serviços.
+            </p>
+
+            <div class="content-card">
+
+                <form id="celebrationForm">
+
+                    <div class="form-group">
+
+                        <label for="celebrationName">
+                            Celebração
+                        </label>
+
+                        <input
+                            type="text"
+                            id="celebrationName"
+                            placeholder="Ex.: Santa Missa"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="celebrationDate">
+                            Data
+                        </label>
+
+                        <input
+                            type="date"
+                            id="celebrationDate"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="period-options-title">
+                            Período
+                        </label>
+
+                        <div class="period-options">
+
+                            <label class="period-option">
+                                <input
+                                    type="radio"
+                                    name="celebrationPeriod"
+                                    value="morning"
+                                    required
+                                >
+                                <span>☀️ Manhã</span>
+                            </label>
+
+                            <label class="period-option">
+                                <input
+                                    type="radio"
+                                    name="celebrationPeriod"
+                                    value="night"
+                                    required
+                                >
+                                <span>🌙 Noite</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <h3>Distribuição por experiência</h3>
+
+                    <p class="form-description">
+                        Padrão inicial: 1 experiente, 1 intermediário
+                        e 2 iniciantes.
+                    </p>
+
+                    <div class="levels-grid">
+
+                        <div class="form-group">
+
+                            <label for="neededExperienced">
+                                Experientes
+                            </label>
+
+                            <input
+                                type="number"
+                                id="neededExperienced"
+                                min="0"
+                                value="1"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="neededIntermediate">
+                                Intermediários
+                            </label>
+
+                            <input
+                                type="number"
+                                id="neededIntermediate"
+                                min="0"
+                                value="1"
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="neededBeginners">
+                                Iniciantes
+                            </label>
+
+                            <input
+                                type="number"
+                                id="neededBeginners"
+                                min="0"
+                                value="2"
+                            >
+
+                        </div>
+
+                    </div>
+
+                    <button class="primary-button" type="submit">
+                        + Cadastrar celebração
+                    </button>
+
+                </form>
+
+            </div>
+
+            <div id="celebrationsList" class="admin-list"></div>
+
+        </div>
+
+
+        <!-- DISPONIBILIDADES -->
+
+        <div id="availabilityAdmin" class="admin-content">
+
+            <h2>Disponibilidades recebidas</h2>
+
+            <p>
+                Consulte os dias informados pelos pais
+                e responsáveis, incluindo as preferências
+                de período.
+            </p>
+
+            <div id="availabilityList" class="admin-list">
+
+                <div class="empty-state">
+                    Nenhuma disponibilidade recebida.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ESCALAS -->
+
+        <div id="schedules" class="admin-content">
+
+            <h2>Escalas de serviço</h2>
+
+            <p>
+                Gere as escalas com base nas disponibilidades,
+                preferências de período e classificações
+                dos coroinhas.
+            </p>
+
+            <div id="scheduleList" class="admin-list">
+
+                <div class="empty-state">
+                    Nenhuma escala gerada.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- AVISOS -->
+
+<div id="toast" class="toast"></div>
+
+
+<!-- RODAPÉ -->
+
+<footer>
+
+    <p>✝ Servir com amor, dedicação e alegria.</p>
+
+    <span>Organização das escalas de serviço</span>
+
+</footer>
+
+</body>
+</html>
