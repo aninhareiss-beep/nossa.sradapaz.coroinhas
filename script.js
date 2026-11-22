@@ -27,7 +27,7 @@ import {
 const ADMIN_EMAIL = 'aninhareiss@yahoo.com';
 
 const firebaseConfig = {
-  apiKey: "coroinhas26",
+  apiKey: "AIzaSyA-0ySzJ-edLBIskqZOo6loE3x47MD2Y78",
   authDomain: "coroinhas-paroquia.firebaseapp.com",
   projectId: "coroinhas-paroquia",
   storageBucket: "coroinhas-paroquia.firebasestorage.app",
